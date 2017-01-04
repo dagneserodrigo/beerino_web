@@ -80,3 +80,7 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+#Visual Studio Files and Folders
+.vs/
+obj/

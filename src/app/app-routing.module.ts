@@ -3,16 +3,19 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { BeerComponent } from './beer/beer.component';
 import { BeersComponent } from './beers/beers.component';
-import { DevicesComponent } from './devices/devices.component';
-import { ConfigurationsComponent } from './configurations/configurations.component';
+import { BeerinoComponent } from './beerino/beerino.component';
+import { BeerinosComponent } from './beerinos/beerinos.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'beer/:id', component: BeerComponent },
   { path: 'beers', component: BeersComponent },
-  { path: 'devices', component: DevicesComponent },
-  { path: 'configurations', component: ConfigurationsComponent },
+  { path: 'beerino/:id', component: BeerinoComponent },
+  { path: 'beerinos', component: BeerinosComponent },
   { path: '**', redirectTo: '' }
 ];
 

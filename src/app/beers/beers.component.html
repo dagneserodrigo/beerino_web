@@ -1,3 +1,21 @@
-<p>
-  beers works!
-</p>
+<h1>Cervejas</h1>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th># <span class="sr-only">ID</span></th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Visibility</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let beer of beers">
+        <th>{{ beer.id }}</th>
+        <th>{{ beer.name }}</th>
+        <th>{{ beer.description }}</th>
+        <th>{{ beer.public ? 'Public' : 'Private' }}</th>
+        <th></th>
+    </tr>
+    </tbody>
+</table>

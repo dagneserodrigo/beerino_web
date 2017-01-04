@@ -33,9 +33,11 @@ export class AuthService {
       connection: 'Username-Password-Authentication',
       responseType: 'token',
       email: username,
-      password: password,
-    }, function(err) {
-      if (err) alert("something went wrong: " + err.message);
+      password: password
+    }, (err) => {
+        if (err) { alert("something went wrong: " + err.message); return; }
+        console.log("Login with username and password successful");
+        this.router.navigate(['/home']);
     });
   };
 
@@ -44,17 +46,20 @@ export class AuthService {
       connection: 'Username-Password-Authentication',
       responseType: 'token',
       email: username,
-      password: password,
-    }, function(err) {
-      if (err) alert("something went wrong: " + err.message);
+      password: password
+    }, (err) => {
+        if (err) { alert("something went wrong: " + err.message); return; }
+        this.router.navigate(['/login']);
     });
   };
 
   public googleLogin() {
     this.auth0.login({
       connection: 'google-oauth2'
-    }, function(err) {
-      if (err) alert("something went wrong: " + err.message);
+    }, (err) => {
+        if (err) { alert("something went wrong: " + err.message); return; }
+        console.log("Login with google successful");
+        this.router.navigate(['/home']);
     });
   };
 
@@ -66,6 +71,7 @@ export class AuthService {
 
   public logout() {
     // Remove token from localStorage
-    localStorage.removeItem('id_token');
+      localStorage.removeItem('id_token');
+      this.router.navigate(['/login']);
   };
 }
