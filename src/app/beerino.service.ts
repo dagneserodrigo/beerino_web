@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
+import { Beerino } from './entities/beerino';
+import { Beer } from './entities/beer';
+import { Task } from './entities/task';
+
 @Injectable()
 export class BeerinoService {
 
@@ -9,7 +13,7 @@ export class BeerinoService {
 
     private requestOptions = new RequestOptions({
          headers: new Headers({
-             'authorization': 'Bearer' + localStorage.getItem('id_token'),
+             'Authorization': 'Bearer' + localStorage.getItem('id_token'),
              'Content-Type': 'application/json'
          })
     });
@@ -17,15 +21,39 @@ export class BeerinoService {
     constructor(private http: Http) { }
 
     getUserBeerinos(): Observable<Beerino[]> {
-        return this.http.get(this.beerinoApiUrl + 'beerinos', this.requestOptions)
+        return this.http.post(this.beerinoApiUrl + 'beerinos', { userEmail: localStorage.getItem('email') }, this.requestOptions)
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }
+
+    getBeerino(beerinoId): Observable<Beerino> {
+        return this.http.get('beerino/' + beerinoId, this.requestOptions)
                         .map(this.extractData)
                         .catch(this.handleError);
     }
 
     getBeers(): Observable<Beer[]> {
-        return this.http.get(this.beerinoApiUrl + 'beers', this.requestOptions)
+        return this.http.post(this.beerinoApiUrl + 'beers', { userEmail: localStorage.getItem('email') }, this.requestOptions)
                         .map(this.extractData)
                         .catch(this.handleError);
+    }
+
+    getBeer(beerId: number): Observable<Beer> {
+        return this.http.get('beer/' + beerId, this.requestOptions)
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }
+
+    getBeerTasks(beerId: number): Observable<Task[]> {
+        return this.http.get('', this.requestOptions)
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }
+
+    getTask(taskId: number): Observable<Task> {
+        return this.http.get('', this.requestOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
     private extractData(res: Response) {

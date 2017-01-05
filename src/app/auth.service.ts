@@ -21,6 +21,15 @@ export class AuthService {
 
     if (result && result.idToken) {
       localStorage.setItem('id_token', result.idToken);
+      localStorage.setItem('access_token', result.accessToken);
+
+      this.auth0.getUserInfo(result.accessToken, (err, profile) => {
+        if (err) throw err;
+        else localStorage.setItem('email', profile.email);
+      });
+
+      console.log("Login successful");
+
       this.router.navigate(['/home']);
     } else if (result && result.error) {
       alert('error: ' + result.error);
@@ -36,7 +45,6 @@ export class AuthService {
       password: password
     }, (err) => {
         if (err) { alert("something went wrong: " + err.message); return; }
-        console.log("Login with username and password successful");
         this.router.navigate(['/home']);
     });
   };
@@ -55,10 +63,10 @@ export class AuthService {
 
   public googleLogin() {
     this.auth0.login({
-      connection: 'google-oauth2'
+        connection: 'google-oauth2',
+        responseType: 'token'
     }, (err) => {
         if (err) { alert("something went wrong: " + err.message); return; }
-        console.log("Login with google successful");
         this.router.navigate(['/home']);
     });
   };
@@ -72,6 +80,7 @@ export class AuthService {
   public logout() {
     // Remove token from localStorage
       localStorage.removeItem('id_token');
-      this.router.navigate(['/login']);
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('email');
   };
 }

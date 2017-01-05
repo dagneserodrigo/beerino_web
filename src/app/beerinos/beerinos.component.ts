@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BeerinoService } from '../beerino.service';
+import { Beerino } from '../entities/beerino';
 
 @Component({
     selector: 'app-beerinos',

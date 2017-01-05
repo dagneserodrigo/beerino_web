@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../auth.service';
 import { BeerinoService } from '../beerino.service';
+import { Beer } from '../entities/beer';
 
 @Component({
     selector: 'app-beers',

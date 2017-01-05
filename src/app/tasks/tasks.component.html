@@ -1,3 +1,21 @@
-<p>
-  tasks works!
-</p>
+<h1>Beer Tasks</h1>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th># <span class="sr-only">ID</span></th>
+        <th>Task Duration</th>
+        <th>Temperature</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let task of tasks">
+        <th>{{ task.id }}</th>
+        <th>{{ task.time }}</th>
+        <th>{{ task.temperature }}</th>
+        <th>
+            <a class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i><span class="sr-only">Edit Task</span></a>
+        </th>
+    </tr>
+    </tbody>
+</table>

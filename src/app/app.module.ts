@@ -14,6 +14,7 @@ import { BeerinoComponent } from './beerino/beerino.component';
 import { BeerinosComponent } from './beerinos/beerinos.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { BeerComponent } from './beer/beer.component';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { BeerComponent } from './beer/beer.component';
     BeerinoComponent,
     BeerinosComponent,
     TasksComponent,
-    BeerComponent
+    BeerComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,

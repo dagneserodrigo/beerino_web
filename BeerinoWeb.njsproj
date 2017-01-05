@@ -33,6 +33,8 @@
     <Content Include="src\app\login\login.component.scss" />
     <Content Include="src\app\tasks\tasks.component.html" />
     <Content Include="src\app\tasks\tasks.component.scss" />
+    <Content Include="src\app\task\task.component.html" />
+    <Content Include="src\app\task\task.component.scss" />
     <Content Include="src\styles.scss" />
     <Content Include="tslint.json" />
     <Content Include="README.md" />
@@ -54,8 +56,11 @@
     <TypeScriptCompile Include="src\app\beer\beer.component.ts" />
     <TypeScriptCompile Include="src\app\entities\beer.ts" />
     <TypeScriptCompile Include="src\app\entities\beerino.ts" />
+    <TypeScriptCompile Include="src\app\entities\task.ts" />
     <TypeScriptCompile Include="src\app\tasks\tasks.component.spec.ts" />
     <TypeScriptCompile Include="src\app\tasks\tasks.component.ts" />
+    <TypeScriptCompile Include="src\app\task\task.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\task\task.component.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
     <TypeScriptCompile Include="src\app\rxjs-operators.ts" />
@@ -72,8 +77,6 @@
     <Content Include="src\app\beers\beers.component.html" />
     <TypeScriptCompile Include="src\app\beers\beers.component.spec.ts" />
     <TypeScriptCompile Include="src\app\beers\beers.component.ts" />
-    <TypeScriptCompile Include="src\app\configurations\configurations.component.ts" />
-    <TypeScriptCompile Include="src\app\devices\devices.component.spec.ts" />
     <TypeScriptCompile Include="src\app\devices\devices.component.ts" />
     <Content Include="src\app\home\home.component.html" />
     <TypeScriptCompile Include="src\app\home\home.component.spec.ts" />
@@ -94,6 +97,7 @@
     <Folder Include="src\app\login" />
     <Folder Include="src\app\entities\" />
     <Folder Include="src\app\tasks\" />
+    <Folder Include="src\app\task\" />
     <Folder Include="src\assets" />
     <Folder Include="src\environments" />
   </ItemGroup>
