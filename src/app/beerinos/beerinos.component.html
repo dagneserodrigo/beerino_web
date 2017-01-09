@@ -1,20 +1,24 @@
 <h1>Beerinos</h1>
+<div class="pull-right">
+  <a [routerLink]="['/beerino']" class="btn btn-success">Add new Beerino</a>
+</div>
 <table class="table table-hover">
-    <thead>
+  <thead>
     <tr>
-        <th>Name</th>
-        <th>Identifier</th>
-        <th>Actions</th>
+      <th>Name</th>
+      <th>Identifier</th>
+      <th>Actions</th>
     </tr>
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
     <tr *ngFor="let beerino of beerinos">
-        <td>{{ beerino.name }}</td>
-        <td>{{ beerino.identifier }}</td>
-        <td>
-            <a [routerLink]="['tasks', beerino.identifier]" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-list-alt"></i> <span class="sr-only">List Tasks</span></a>
-            <a class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i> <span class="sr-only">Delete</span></a>
-        </td>
+      <td>{{ beerino.name }}</td>
+      <td>{{ beerino.beerinoId }}</td>
+      <td>
+        <a [routerLink]="['/beerino', beerino.beerinoId]" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i> <span class="sr-only">Edit Beerino</span></a>
+        <a [routerLink]="['/tasks', beerino.beerinoId]" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-list-alt"></i> <span class="sr-only">List Tasks</span></a>
+        <button (click)="deleteBeerino(beerino.beerinoId)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i> <span class="sr-only">Delete</span></button>
+      </td>
     </tr>
-    </tbody>
+  </tbody>
 </table>

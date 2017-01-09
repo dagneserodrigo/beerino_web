@@ -2,6 +2,8 @@ import { Injectable }      from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Router }          from '@angular/router';
 
+import { BeerinoService }  from './beerino.service';
+
 // Avoid name not found warnings
 declare var Auth0: any;
 
@@ -16,7 +18,7 @@ export class AuthService {
     callbackURL: 'http://localhost:4200/signin-auth0',
   });
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private beerinoService: BeerinoService) {
     var result = this.auth0.parseHash(window.location.hash);
 
     if (result && result.idToken) {
@@ -25,7 +27,16 @@ export class AuthService {
 
       this.auth0.getUserInfo(result.accessToken, (err, profile) => {
         if (err) throw err;
-        else localStorage.setItem('email', profile.email);
+        else {
+          localStorage.setItem('email', profile.email);
+
+          this.beerinoService
+            .getUser(profile.email)
+            .subscribe((user) => {
+              localStorage.setItem('sys_userId', user.userId.toString());
+              localStorage.setItem('sys_name', user.name);
+            })
+        }
       });
 
       console.log("Login successful");

@@ -8,17 +8,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" [routerLink]="['']">Beerino</a>
+      <a class="navbar-brand" [routerLink]="['/']">Beerino</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav">
-        <li><a [routerLink]="['beers']">Beers</a></li>
-        <li><a [routerLink]="['beerinos']">Beerinos</a></li>
+        <li><a [routerLink]="['/beers']">Beers</a></li>
+        <li><a [routerLink]="['/beerinos']">Beerinos</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a [routerLink]="['login']" *ngIf="!auth.authenticated()">Log In</a></li>
+        <li><a [routerLink]="['/login']" *ngIf="!auth.authenticated()">Log In</a></li>
         <li><a href="#" (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->

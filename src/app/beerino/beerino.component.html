@@ -1,3 +1,46 @@
-<p>
-  beerino works!
-</p>
+<h1 *ngIf="!beerinoIsValid || isNew">Add new Beerino</h1>
+<h1 *ngIf="beerinoIsValid && !isNew">Editing Beerino {{ model.beerinoId }}</h1>
+<form (ngSubmit)="onSubmit()" #beerinoForm="ngForm">
+  <div class="form-group">
+    <label for="beerinoId">Beerino Identifier</label>
+    <input type="text"
+           name="beerinoId"
+           class="form-control"
+           id="beerinoId"
+           placeholder="To add a new Beerino type your Identifier"
+           maxlength="16"
+           required
+           [(ngModel)]="model.beerinoId"/>
+  </div>
+  <div [hidden]="model.beerinoId == '' ||  beerinoIsValid || !isNew">
+    <button type="button" class="btn btn-primary" (click)="checkBeerinoIdentifier(beerinoId)">Verify</button>
+    <br/><br/>
+  </div>
+  <div [hidden]="!beerinoIsValid">
+    <div class="form-group">
+      <label id="name">Name</label>
+      <input type="text"
+             name="name"
+             class="form-control"
+             id="name"
+             placeholder="Type a name to your Beerino"
+             required
+             [(ngModel)]="model.name"/>
+    </div>
+    <div class="form-group">
+      <label id="description">Description</label>
+      <input type="text"
+             name="description"
+             class="form-control"
+             id="description"
+             placeholder="Type a description to you Beerino"
+             [(ngModel)]="model.description"/>
+    </div>
+  </div>
+  <div>
+    <a [routerLink]="['/beerinos']" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back</a>
+    <span [hidden]="!beerinoIsValid">
+      <button class="btn btn-default" type="submit" [disabled]="!beerinoForm.form.valid || !isNew">Submit</button>
+    </span>
+  </div>
+</form>

@@ -5,24 +5,24 @@ import { BeerinoService } from '../beerino.service';
 import { Beer } from '../entities/beer';
 
 @Component({
-    selector: 'app-beers',
-    templateUrl: './beers.component.html',
-    styleUrls: ['./beers.component.scss']
+  selector: 'app-beers',
+  templateUrl: './beers.component.html',
+  styleUrls: ['./beers.component.scss']
 })
 export class BeersComponent implements OnInit {
-    errorMessage: string;
-    beers: Beer[];
-    constructor(private beerinoService: BeerinoService) { }
+  errorMessage: string;
+  beers: Beer[];
+  constructor(private beerinoService: BeerinoService) { }
 
-    ngOnInit() {
-        this.getBeers();
-    }
+  ngOnInit() {
+    this.getBeers();
+  }
 
-    getBeers() {
-        this.beerinoService
-            .getBeers()
-            .subscribe(
-            beers => this.beers = beers,
-            errorMessage => this.errorMessage = errorMessage);
-    }
+  getBeers() {
+    this.beerinoService
+      .getBeers()
+      .subscribe(
+      beers => this.beers = beers,
+      errorMessage => this.errorMessage = errorMessage);
+  }
 }

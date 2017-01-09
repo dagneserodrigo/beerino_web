@@ -13,6 +13,7 @@ import { TasksComponent } from './tasks/tasks.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'beerino', component: BeerinoComponent },
   { path: 'beerino/:id', component: BeerinoComponent },
   { path: 'beerinos', component: BeerinosComponent },
   { path: 'beer/:id', component: BeerComponent },

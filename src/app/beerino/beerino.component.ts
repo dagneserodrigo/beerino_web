@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+
+import { BeerinoService } from '../beerino.service';
+
+import { Beerino } from '../entities/beerino';
 
 @Component({
   selector: 'app-beerino',
@@ -7,9 +12,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BeerinoComponent implements OnInit {
 
-  constructor() { }
+  beerinoIsValid = false;
+  isNew = true;
+  model = new Beerino('', '', '', +localStorage.getItem('sys_userId'));
+
+  constructor(
+    private beerinoService: BeerinoService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.route
+      .params
+      .subscribe((params: Params) => {
+        if (params["id"]) {
+          this.beerinoService
+            .getBeerino(params["id"])
+            .subscribe((beerino: Beerino) => {
+              this.model = beerino;
+              this.beerinoIsValid = beerino != null && beerino.beerinoId != "";
+              this.isNew = beerino == null || beerino.beerinoId == "";
+            });
+        }
+      });
+  }
+
+  onSubmit() {
+    this.beerinoService
+      .addBeerino(this.model)
+      .subscribe((res: any) => {
+        this.isNew = false;
+      });
+  }
+
+  checkBeerinoIdentifier(beerinoId: string) {
+
   }
 
 }
