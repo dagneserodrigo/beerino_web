@@ -39,7 +39,7 @@ export class BeerinoComponent implements OnInit {
 
   onSubmit() {
     this.beerinoService
-      .addBeerino(this.model)
+      .saveBeerino(this.model)
       .subscribe((res: any) => {
         this.isNew = false;
       });

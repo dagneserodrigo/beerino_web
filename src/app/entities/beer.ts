@@ -4,7 +4,7 @@
         public name: string,
         public description: string,
         public recipe: string,
-        public visibile: boolean,
+        public visibile: any,
         public userId: number
     ) { }
 }

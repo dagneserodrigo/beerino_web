@@ -33,7 +33,7 @@ export class BeerinoService {
       .catch(this.handleError);
   }
 
-  addBeerino(beerino: Beerino): Observable<Beerino> {
+  saveBeerino(beerino: Beerino): Observable<Beerino> {
     return this.http.post(this.beerinoApiUrl + 'beerino', beerino, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
@@ -52,7 +52,13 @@ export class BeerinoService {
   }
 
   getBeer(beerId: number): Observable<Beer> {
-    return this.http.get('beer/' + beerId, this.requestOptions)
+    return this.http.get(this.beerinoApiUrl + 'beer/' + beerId, this.requestOptions)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  deleteBeer(beerId: number): Observable<any> {
+    return this.http.delete(this.beerinoApiUrl + 'beer/' + beerId, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }

@@ -40,7 +40,7 @@
   <div>
     <a [routerLink]="['/beerinos']" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back</a>
     <span [hidden]="!beerinoIsValid">
-      <button class="btn btn-default" type="submit" [disabled]="!beerinoForm.form.valid || !isNew">Submit</button>
+      <button class="btn btn-default" type="submit" [disabled]="!beerinoForm.form.valid">Submit</button>
     </span>
   </div>
 </form>
