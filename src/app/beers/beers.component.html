@@ -16,9 +16,10 @@
     <td>{{ beer.description }}</td>
     <td>{{ beer.visible.data[0] == 1 ? 'Public' : 'Private' }}</td>
     <td>
-      <a class="btn btn-default" (click)="lgModal.show()" ><span class="glyphicon glyphicon-grain"></span></a>
-      <a class="btn btn-default" [routerLink]="['/tasks', beer.beerId]"><span class="glyphicon glyphicon-list-alt"></span></a>
-      <a *ngIf="beer.userId == sysUserId" class="btn btn-danger" (click)="deleteBeer(beer.beerId)"><span class="glyphicon glyphicon-remove"></span></a>
+      <a class="btn btn-default btn-xs" (click)="lgModal.show()" ><span class="glyphicon glyphicon-grain"></span><span class="sr-only">Show beer recipe</span></a>
+      <a class="btn btn-default btn-xs" [routerLink]="['/tasks', beer.beerId]"><span class="glyphicon glyphicon-list-alt"></span><span class="sr-only">Show beer tasks</span></a>
+      <a *ngIf="beer.userId == sysUserId" [routerLink]="['/beer', beer.beerId]" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i> <span class="sr-only">Edit Beer</span></a>
+      <a *ngIf="beer.userId == sysUserId" class="btn btn-danger btn-xs" (click)="deleteBeer(beer.beerId)"><span class="glyphicon glyphicon-remove"></span><span class="sr-only">Delete beer</span></a>
 
       <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">

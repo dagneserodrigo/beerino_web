@@ -30,7 +30,13 @@
     }
   ],
   "addons": [],
-  "packages": [],
+  "packages": [
+    "ng2-ckeditor",
+    {
+      "main": "lib/index.js",
+      "defaultExtension": "js"
+    }
+  ],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"

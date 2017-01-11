@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 
 import { ModalModule } from 'ng2-bootstrap/modal';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 
@@ -36,7 +37,8 @@ import { TaskComponent } from './task/task.component';
     HttpModule,
     JsonpModule,
     AppRoutingModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    CKEditorModule
   ],
   providers: [
     AUTH_PROVIDERS

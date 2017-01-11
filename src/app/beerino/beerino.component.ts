@@ -14,7 +14,7 @@ export class BeerinoComponent implements OnInit {
 
   beerinoIsValid = false;
   isNew = true;
-  model = new Beerino('', '', '', +localStorage.getItem('sys_userId'));
+  model = new Beerino('', '', '<b>Type here you beer recipe.</b>', +localStorage.getItem('sys_userId'));
 
   constructor(
     private beerinoService: BeerinoService,

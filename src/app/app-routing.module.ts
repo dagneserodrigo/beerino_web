@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'beerino', component: BeerinoComponent },
   { path: 'beerino/:id', component: BeerinoComponent },
   { path: 'beerinos', component: BeerinosComponent },
+  { path: 'beer', component: BeerComponent },
   { path: 'beer/:id', component: BeerComponent },
   { path: 'beers', component: BeersComponent },
   { path: 'task/:id', component: TaskComponent },

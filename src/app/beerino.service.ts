@@ -57,6 +57,13 @@ export class BeerinoService {
       .catch(this.handleError);
   }
 
+  saveBeer(beer: Beer): Observable<any> {
+    return this.http.post(this.beerinoApiUrl + 'beer', beer, this.requestOptions)
+      .map(this.extractData)
+      .catch(this.handleError);
+
+  }
+
   deleteBeer(beerId: number): Observable<any> {
     return this.http.delete(this.beerinoApiUrl + 'beer/' + beerId, this.requestOptions)
       .map(this.extractData)
