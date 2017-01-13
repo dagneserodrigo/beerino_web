@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 import { BeerinoService } from '../beerino.service';
@@ -15,7 +16,14 @@ export class BeersComponent implements OnInit {
 
   sysUserId = localStorage.getItem('sys_userId');
 
-  constructor(private beerinoService: BeerinoService) { }
+  constructor(
+    private authService: AuthService,
+    private beerinoService: BeerinoService,
+    private router: Router
+  ) {
+    if (!authService.authenticated())
+      this.router.navigate(['/login']);
+  }
 
   ngOnInit() {
     this.getBeers();
@@ -27,7 +35,7 @@ export class BeersComponent implements OnInit {
       .subscribe(
       res => {
         if (res.valid) {
-          this.beers = res.data as Beer[];
+          this.beers = [].concat(res.data) as Beer[];
         } else {
           this.errorMessage = res.message;
         }

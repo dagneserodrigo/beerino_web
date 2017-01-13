@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -14,8 +14,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav">
-        <li><a [routerLink]="['/beers']">Beers</a></li>
-        <li><a [routerLink]="['/beerinos']">Beerinos</a></li>
+        <li><a *ngIf="auth.authenticated()" [routerLink]="['/beers']">Beers</a></li>
+        <li><a *ngIf="auth.authenticated()" [routerLink]="['/beerinos']">Beerinos</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a [routerLink]="['/login']" *ngIf="!auth.authenticated()">Log In</a></li>

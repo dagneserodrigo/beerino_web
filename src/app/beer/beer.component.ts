@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
+import { AuthService } from '../auth.service';
 import { BeerinoService } from '../beerino.service';
+
 import { BaseApiResponse }    from '../entities/baseApiResponse';
 import { Beer } from '../entities/beer';
 
@@ -16,12 +18,17 @@ export class BeerComponent implements OnInit {
   isNew = true;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
     private beerinoService: BeerinoService,
-    private route: ActivatedRoute
-  ) { }
+    private router: Router
+  ) {
+    if (!authService.authenticated())
+      this.router.navigate(['/login']);
+  }
 
   ngOnInit() {
-    this.route
+    this.activatedRoute
       .params
       .subscribe((params: Params) => {
         if (params["id"]) {

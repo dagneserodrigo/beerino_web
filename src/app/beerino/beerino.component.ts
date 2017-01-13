@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
+import { AuthService } from '../auth.service';
 import { BeerinoService } from '../beerino.service';
 
 import { BaseApiResponse }    from '../entities/baseApiResponse';
@@ -20,9 +21,14 @@ export class BeerinoComponent implements OnInit {
   model = new Beerino('', '', '', +localStorage.getItem('sys_userId'), null, null, null);
 
   constructor(
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
     private beerinoService: BeerinoService,
-    private route: ActivatedRoute
-  ) { }
+    private router: Router
+  ) {
+    if (!authService.authenticated())
+      this.router.navigate(['/login']);
+  }
 
   ngOnInit() {
     this.beerinoService
@@ -32,7 +38,7 @@ export class BeerinoComponent implements OnInit {
           this.beers = res.data as Beer[];
         }
       });
-    this.route
+    this.activatedRoute
       .params
       .subscribe((params: Params) => {
         if (params["id"]) {

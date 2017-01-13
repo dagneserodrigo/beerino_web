@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../auth.service';
 import { BeerinoService } from '../beerino.service';
+
 import { Beerino } from '../entities/beerino';
 import { Task } from '../entities/task';
 
@@ -14,7 +18,14 @@ export class BeerinosComponent implements OnInit {
   currentBeerName: string;
   currentTask = new Task(null, 0, 0, 0, 0);
   beerinos: Beerino[];
-  constructor(private beerinoService: BeerinoService) { }
+  constructor(
+    private authService: AuthService,
+    private beerinoService: BeerinoService,
+    private router: Router
+  ) {
+    if (!authService.authenticated())
+      this.router.navigate(['/login']);
+  }
 
   ngOnInit() {
     this.getBeerinos();
@@ -44,7 +55,7 @@ export class BeerinosComponent implements OnInit {
       .subscribe(
       res => {
         if (res.valid) {
-          this.beerinos = res.data as Beerino[];
+          this.beerinos = [].concat(res.data) as Beerino[];
         } else {
           this.errorMessage = res.message;
         }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
+import { AuthService } from '../auth.service';
 import { BeerinoService } from '../beerino.service';
 
 import { Task } from "../entities/task";
@@ -18,12 +19,17 @@ export class TasksComponent implements OnInit {
   tasks: Task[];
 
   constructor(
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
     private beerinoService: BeerinoService,
-    private route: ActivatedRoute
-  ) { }
+    private router: Router
+  ) {
+    if (!authService.authenticated())
+      this.router.navigate(['/login']);
+  }
 
   ngOnInit() {
-    this.route
+    this.activatedRoute
       .params
       .subscribe((params: Params) => {
         if (params["beerId"]) {
@@ -32,7 +38,7 @@ export class TasksComponent implements OnInit {
             .getBeerTasks(params["beerId"])
             .subscribe((res: BaseApiResponse) => {
               if (res.valid) {
-                this.tasks = res.data.sort((a, b) => a.order-b.order) as Task[];
+                this.tasks = ([].concat(res.data)).sort((a, b) => a.order-b.order) as Task[];
               } else {
                 this.errorMessage = res.message;
               }
