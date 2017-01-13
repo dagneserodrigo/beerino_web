@@ -32,9 +32,9 @@ export class AuthService {
 
           this.beerinoService
             .getUser(profile.email)
-            .subscribe((user) => {
-              localStorage.setItem('sys_userId', user.userId.toString());
-              localStorage.setItem('sys_name', user.name);
+            .subscribe((res) => {
+              localStorage.setItem('sys_userId', res.data.userId.toString());
+              localStorage.setItem('sys_name', res.data.name);
             })
         }
       });

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { BeerinoService } from '../beerino.service';
+import { BaseApiResponse }    from '../entities/baseApiResponse';
 import { Beer } from '../entities/beer';
 
 @Component({
@@ -26,10 +27,12 @@ export class BeerComponent implements OnInit {
         if (params["id"]) {
           this.beerinoService
             .getBeer(params["id"])
-            .subscribe((beer: Beer) => {
-              this.model = beer;
-              this.model.visible = beer.visible.data[0] == 1;
-              this.isNew = beer == null || beer.beerId == 0;
+            .subscribe((res: BaseApiResponse) => {
+              if (res.valid) {
+                this.model = res.data as Beer;
+                this.model.visible = res.data.visible.data[0] == 1;
+                this.isNew = this.model.beerId == 0;
+              }
             });
         }
       });
@@ -38,9 +41,11 @@ export class BeerComponent implements OnInit {
   onSubmit() {
     this.beerinoService
       .saveBeer(this.model)
-      .subscribe((res: any) => {
-        this.isNew = false;
-        //@TODO update beer.beerId
+      .subscribe((res) => {
+        if (this.isNew && res.valid) {
+          this.model.beerId = +res.data.insertId;
+          this.isNew = false;
+        }
       });
   }
 }

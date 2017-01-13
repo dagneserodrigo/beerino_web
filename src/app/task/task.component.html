@@ -1,3 +1,41 @@
-<p>
-  task works!
-</p>
+<h1 *ngIf="isNew">Add new Task to Beer</h1>
+<h1 *ngIf="!isNew">Editing Task {{ model.taskId }}</h1>
+<form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+  <div class="form-group">
+    <label id="time">Duration (in ms)</label>
+    <input type="number"
+           name="time"
+           class="form-control"
+           id="time"
+           placeholder="Type the duration of the task in ms"
+           required
+           [(ngModel)]="model.time"/>
+  </div>
+  <div class="form-group">
+    <label id="temperature">Temperature</label>
+    <input type="number"
+           name="temperature"
+           class="form-control"
+           id="temperature"
+           placeholder="Type the medium task temperature"
+           required
+           [(ngModel)]="model.temperature"/>
+    <div class="help-block">The temperature can be variate 2&#8451; to plus or less.</div>
+  </div>
+  <div class="form-group">
+    <label id="order">Task Order</label>
+    <input type="number"
+           name="order"
+           class="form-control"
+           id="order"
+           placeholder="The task order in the tasks list."
+           required
+           [(ngModel)]="model.order"/>
+  </div>
+  <a [routerLink]="['/tasks', model.beerId]" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back</a>
+  <button type="submit"
+          class="btn btn-default"
+          [disabled]="!taskForm.form.valid">
+    Submit
+  </button>
+</form>

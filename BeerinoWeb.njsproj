@@ -54,6 +54,7 @@
     <TypeScriptCompile Include="src\app\beerino\beerino.component.ts" />
     <TypeScriptCompile Include="src\app\beer\beer.component.spec.ts" />
     <TypeScriptCompile Include="src\app\beer\beer.component.ts" />
+    <TypeScriptCompile Include="src\app\entities\baseApiResponse.ts" />
     <TypeScriptCompile Include="src\app\entities\beer.ts" />
     <TypeScriptCompile Include="src\app\entities\user.ts" />
     <TypeScriptCompile Include="src\app\entities\beerino.ts" />

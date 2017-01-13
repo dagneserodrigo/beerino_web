@@ -25,7 +25,13 @@ export class BeersComponent implements OnInit {
     this.beerinoService
       .getBeers()
       .subscribe(
-      beers => this.beers = beers,
+      res => {
+        if (res.valid) {
+          this.beers = res.data as Beer[];
+        } else {
+          this.errorMessage = res.message;
+        }
+      },
       errorMessage => this.errorMessage = errorMessage);
   }
 

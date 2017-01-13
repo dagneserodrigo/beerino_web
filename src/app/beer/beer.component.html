@@ -36,6 +36,7 @@
     </label>
     <div class="help-block">If checked all users can see this beer recipe.</div>
   </div>
+  <a [routerLink]="['/beers']" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back</a>
   <button type="submit"
           class="btn btn-default"
           [disabled]="!beerForm.form.valid">

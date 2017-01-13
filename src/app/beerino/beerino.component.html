@@ -10,10 +10,12 @@
            placeholder="To add a new Beerino type your Identifier"
            maxlength="16"
            required
-           [(ngModel)]="model.beerinoId"/>
+           [readonly]="beerinoIsValid || !isNew"
+           [(ngModel)]="model.beerinoId" />
+    <div class="text-danger" [hidden]="model.beerinoId == '' || beerinoIsValid || !isNew">Invalid Beerino Identifier or already in use.</div>
   </div>
-  <div [hidden]="model.beerinoId == '' ||  beerinoIsValid || !isNew">
-    <button type="button" class="btn btn-primary" (click)="checkBeerinoIdentifier(beerinoId)">Verify</button>
+  <div [hidden]="model.beerinoId == '' || beerinoIsValid || !isNew">
+    <button type="button" class="btn btn-primary" (click)="checkBeerinoIdentifier(model.beerinoId)">Verify</button>
     <br/><br/>
   </div>
   <div [hidden]="!beerinoIsValid">
@@ -35,6 +37,16 @@
              id="description"
              placeholder="Type a description to you Beerino"
              [(ngModel)]="model.description"/>
+    </div>
+    <div class="form-group">
+      <label id="currentBeerId">Current Beer</label>
+      <select name="currentBeerId"
+              class="form-control"
+              id="currentBeerId"
+              [(ngModel)]="model.currentBeerId">
+        <option [value]="null">None</option>
+        <option [value]="beer.beerId" *ngFor="let beer of beers">{{ beer.name }}</option>
+      </select>
     </div>
   </div>
   <div>

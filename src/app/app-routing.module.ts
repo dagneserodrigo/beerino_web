@@ -19,7 +19,8 @@ const routes: Routes = [
   { path: 'beer', component: BeerComponent },
   { path: 'beer/:id', component: BeerComponent },
   { path: 'beers', component: BeersComponent },
-  { path: 'task/:id', component: TaskComponent },
+  { path: 'task/:beerId', component: TaskComponent },
+  { path: 'task/:beerId/:id', component: TaskComponent },
   { path: 'tasks/:beerId', component: TasksComponent },
   { path: '**', redirectTo: '' }
 ];

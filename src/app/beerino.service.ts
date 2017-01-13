@@ -2,10 +2,11 @@ import { Injectable }                              from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable }                              from 'rxjs/Observable';
 
-import { Beer }    from './entities/beer';
-import { Beerino } from './entities/beerino';
-import { Task }    from './entities/task';
-import { User }    from './entities/user';
+import { BaseApiResponse }    from './entities/baseApiResponse';
+import { Beer }               from './entities/beer';
+import { Beerino }            from './entities/beerino';
+import { Task }               from './entities/task';
+import { User }               from './entities/user';
 
 @Injectable()
 export class BeerinoService {
@@ -14,75 +15,89 @@ export class BeerinoService {
 
   private requestOptions = new RequestOptions({
     headers: new Headers({
-      'Authorization': 'Bearer' + localStorage.getItem('id_token'),
+      'Authorization': 'Bearer ' + localStorage.getItem('id_token'),
       'Content-Type': 'application/json'
     })
   });
 
   constructor(private http: Http) { }
 
-  getUserBeerinos(): Observable<Beerino[]> {
+  getUserBeerinos(): Observable<BaseApiResponse> {
     return this.http.post(this.beerinoApiUrl + 'beerinos', { userEmail: localStorage.getItem('email') }, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getBeerino(beerinoId: string): Observable<Beerino> {
+  getBeerino(beerinoId: string): Observable<BaseApiResponse> {
     return this.http.get(this.beerinoApiUrl + 'beerino/' + beerinoId, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  saveBeerino(beerino: Beerino): Observable<Beerino> {
+  saveBeerino(beerino: Beerino): Observable<BaseApiResponse> {
     return this.http.post(this.beerinoApiUrl + 'beerino', beerino, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  deleteBeerino(beerinoId: string): Observable<any> {
+  deleteBeerino(beerinoId: string): Observable<BaseApiResponse> {
     return this.http.delete(this.beerinoApiUrl + 'beerino/' + beerinoId, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getBeers(): Observable<Beer[]> {
+  getBeers(): Observable<BaseApiResponse> {
     return this.http.post(this.beerinoApiUrl + 'beers', { userEmail: localStorage.getItem('email') }, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getBeer(beerId: number): Observable<Beer> {
+  getBeer(beerId: number): Observable<BaseApiResponse> {
     return this.http.get(this.beerinoApiUrl + 'beer/' + beerId, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  saveBeer(beer: Beer): Observable<any> {
+  saveBeer(beer: Beer): Observable<BaseApiResponse> {
     return this.http.post(this.beerinoApiUrl + 'beer', beer, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
 
   }
 
-  deleteBeer(beerId: number): Observable<any> {
+  deleteBeer(beerId: number): Observable<BaseApiResponse> {
     return this.http.delete(this.beerinoApiUrl + 'beer/' + beerId, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getBeerTasks(beerId: number): Observable<Task[]> {
-    return this.http.get(this.beerinoApiUrl + '', this.requestOptions)
+  getBeerTasks(beerId: number): Observable<BaseApiResponse> {
+    return this.http.post(this.beerinoApiUrl + 'tasks', { beerId: beerId }, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getTask(taskId: number): Observable<Task> {
-    return this.http.get(this.beerinoApiUrl + '', this.requestOptions)
+  getTask(taskId: number): Observable<BaseApiResponse> {
+    return this.http.get(this.beerinoApiUrl + 'task/' + taskId, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getUser(email: string): Observable<User> {
+  saveTask(task: Task): Observable<BaseApiResponse> {
+    return this.http.post(this.beerinoApiUrl + 'task', task, this.requestOptions)
+      .map(this.extractData)
+      .catch(this.handleError);
+
+  }
+
+  deleteTask(taskId: number): Observable<BaseApiResponse> {
+    return this.http.delete(this.beerinoApiUrl + 'task/' + taskId, this.requestOptions)
+      .map(this.extractData)
+      .catch(this.handleError);
+
+  }
+
+  getUser(email: string): Observable<BaseApiResponse> {
     return this.http.get(this.beerinoApiUrl + 'user/' + email, this.requestOptions)
       .map(this.extractData)
       .catch(this.handleError);

@@ -16,8 +16,39 @@
       <td>{{ beerino.beerinoId }}</td>
       <td>
         <a [routerLink]="['/beerino', beerino.beerinoId]" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i> <span class="sr-only">Edit Beerino</span></a>
-        <a [routerLink]="['/tasks', beerino.beerinoId]" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-list-alt"></i> <span class="sr-only">List Tasks</span></a>
+        <button (click)="lgModal.show()" *ngIf="beerino.currentBeerId != null" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-list-alt"></i> <span class="sr-only">List Tasks</span></button>
         <button (click)="deleteBeerino(beerino.beerinoId)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i> <span class="sr-only">Delete</span></button>
+
+        <div bsModal #lgModal="bs-modal" (onShow)="onModalShow(beerino.currentBeerId, beerino.currentTaskId)" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Beerino {{ beerino.name }} ({{ beerino.beerinoId }}) <small>Current Beer/Task</small></h4>
+              </div>
+              <div class="modal-body">
+                <p>
+                  <strong>Current Beer:</strong> {{ currentBeerName }}
+                </p>
+                <p>
+                  <strong>Currant Task Runing:</strong>
+                  <span *ngIf="beerino.currentTaskId == null">No Task running.</span>
+                  <span *ngIf="beerino.currentTaskId != null"><br/>
+                    - <strong>Task ID:</strong> {{ currentTask.taskId }}<br />
+                    - <strong>Task Order:</strong> {{ currentTask.order }}<br />
+                    - <strong>Task Duration:</strong> {{ currentTask.time }}ms (~{{ (currentTask.time/60)/60 }}min)<br />
+                    - <strong>Task Medium Temperature:</strong> {{ currentTask.temperature }}	&#8451;
+                  </span>
+                </p>
+                <p *ngIf="beerino.currentTaskId != null">
+                  <strong>Latest related temperature:</strong> {{ beerino.currentTemperature }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </td>
     </tr>
   </tbody>
