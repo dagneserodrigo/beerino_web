@@ -20,7 +20,7 @@
         <th>{{ task.taskId }}</th>
         <th>{{ task.time/60000 }} min</th>
         <th>{{ task.temperature }} &#8451;</th>
-        <th>{{ task.order }}</th>
+        <th>{{ task.order }}ª</th>
         <th>
           <a [routerLink]="['/task', task.beerId, task.taskId]" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i><span class="sr-only">Edit Task</span></a>
           <button (click)="deleteTask(task.taskId)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i> <span class="sr-only">Delete</span></button>
