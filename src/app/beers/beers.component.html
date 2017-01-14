@@ -19,7 +19,7 @@
     <td>{{ beer.beerId }}</td>
     <td>{{ beer.name }}</td>
     <td>{{ beer.description }}</td>
-    <td>{{ beer.visible.data[0] == 1 ? 'Public' : 'Private' }}</td>
+    <td>{{ beer.visible.data[0] == 1 ? 'Public' : 'Private' }}{{ beer.userId == sysUserId ? ' (Woner)' : '' }}</td>
     <td>
       <a class="btn btn-default btn-xs" (click)="lgModal.show()" ><span class="glyphicon glyphicon-grain"></span><span class="sr-only">Show beer recipe</span></a>
       <a class="btn btn-default btn-xs" [routerLink]="['/tasks', beer.beerId]"><span class="glyphicon glyphicon-list-alt"></span><span class="sr-only">Show beer tasks</span></a>
