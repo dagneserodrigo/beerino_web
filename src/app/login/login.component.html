@@ -1,13 +1,9 @@
-<form>
-  <div class="form-group">
-    <label for="name">Username</label>
-    <input type="text" class="form-control" #username placeholder="yours@example.com">
-  </div>
-  <div class="form-group">
-    <label for="name">Password</label>
-    <input type="password" class="form-control" #password placeholder="your password">
-  </div>
-  <button type="submit" class="btn btn-default" (click)="auth.login(username.value, password.value)">Login</button>
-  <!--<button type="submit" class="btn btn-default" (click)="auth.signUp(username.value, password.value)">Sign Up</button>-->
-  <button type="submit" class="btn btn-default btn-primary" (click)="auth.googleLogin()">Login with Google</button>
+<form class="form-signin" style="max-width: 330px; padding: 15px; margin: 0 auto;">
+  <h2 class="form-signin-heading">Please sign in</h2>
+  <label class="sr-only" for="name">Username</label>
+  <input type="text" class="form-control" #username placeholder="yours@example.com" name="name">
+  <label class="sr-only" for="password">Password</label>
+  <input type="password" class="form-control" #password placeholder="your password" name="password">
+  <button type="submit" class="btn btn-lg btn-primary btn-block" (click)="auth.login(username.value, password.value)" style="margin-top: 20px;">Login</button>
+  <button type="submit" class="btn btn-lg btn-primary btn-block" (click)="auth.googleLogin()" style="margin-top: 20px;">Login with Google</button>
 </form>
