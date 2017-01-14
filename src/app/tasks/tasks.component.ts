@@ -14,7 +14,8 @@ import { BaseApiResponse } from "../entities/baseApiResponse";
 })
 export class TasksComponent implements OnInit {
 
-  errorMessage: string;
+  infoMessage = "";
+  errorMessage = "";
   beerId: number;
   tasks: Task[];
 
@@ -38,25 +39,53 @@ export class TasksComponent implements OnInit {
             .getBeerTasks(params["beerId"])
             .subscribe((res: BaseApiResponse) => {
               if (res.valid) {
-                this.tasks = ([].concat(res.data)).sort((a, b) => a.order-b.order) as Task[];
+                this.tasks = ([].concat(res.data)).sort((a, b) => a.order - b.order) as Task[];
               } else {
-                this.errorMessage = res.message;
+
+                if (typeof res.message == "string")
+                  this.errorMessage = res.message;
+                else
+                  res.message.map((message) => {
+                    this.errorMessage += message + "<br />";
+                  });
+
+                setTimeout(() => { this.errorMessage = ""; }, 10000);
               }
             });
         }
+      },
+      errorMessage => {
+        this.errorMessage = errorMessage;
+        setTimeout(() => { this.errorMessage = ""; }, 10000);
       });
   }
 
   deleteTask(taskId: number) {
     this.beerinoService
       .deleteTask(taskId)
-      .subscribe(() => {
-        for (let i = 0; i < this.tasks.length; i++) {
-          if (this.tasks[i].taskId == taskId) {
-            this.tasks.splice(i, 1);
-            break;
+      .subscribe((res) => {
+        if (res.valid && res.data.affectedRows == 1) {
+          for (let i = 0; i < this.tasks.length; i++) {
+            if (this.tasks[i].taskId == taskId) {
+              this.tasks.splice(i, 1);
+              this.infoMessage = "Task deleted.";
+              setTimeout(() => { this.infoMessage = ""; }, 10000);
+              break;
+            }
           }
+        } else if (res.valid && res.data.affectedRows == 0) {
+          this.errorMessage = "No Task deleted. Verify and try again.";
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
+        } else {
+          res.message.map((message) => {
+            this.errorMessage += message + "<br />";
+          });
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
         }
+      },
+      errorMessage => {
+        this.errorMessage = errorMessage;
+        setTimeout(() => { this.errorMessage = ""; }, 10000);
       });
   }
 

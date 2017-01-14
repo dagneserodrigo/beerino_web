@@ -11,7 +11,7 @@ import { User }               from './entities/user';
 @Injectable()
 export class BeerinoService {
 
-  private beerinoApiUrl = "http://localhost:3000/";
+  private beerinoApiUrl = "http://138.197.86.122:3000/";
 
   private requestOptions = new RequestOptions({
     headers: new Headers({

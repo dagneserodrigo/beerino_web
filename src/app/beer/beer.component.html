@@ -1,5 +1,7 @@
 <h1 *ngIf="isNew">Add new Beer</h1>
 <h1 *ngIf="!isNew">Editing Beer {{ model.name }}</h1>
+<alert type="info" *ngIf="infoMessage">{{ infoMessage }}</alert>
+<alert type="danger" *ngIf="errorMessage">{{ errorMessage }}</alert>
 <form (ngSubmit)="onSubmit()" #beerForm="ngForm">
   <div class="form-group">
     <label for="name">Name</label>

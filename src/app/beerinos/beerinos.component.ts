@@ -14,7 +14,8 @@ import { Task } from '../entities/task';
 })
 export class BeerinosComponent implements OnInit {
 
-  errorMessage: string;
+  infoMessage = "";
+  errorMessage = "";
   currentBeerName: string;
   currentTask = new Task(null, 0, 0, 0, 0);
   beerinos: Beerino[];
@@ -31,13 +32,17 @@ export class BeerinosComponent implements OnInit {
     this.getBeerinos();
   }
 
-  onModalShow(beerId: number, taskId?:number) {
+  onModalShow(beerId: number, taskId?: number) {
     this.beerinoService
       .getBeer(beerId)
       .subscribe((res) => {
         if (res.valid) {
           this.currentBeerName = res.data.name;
         }
+      },
+      errorMessage => {
+        this.errorMessage = errorMessage;
+        setTimeout(() => { this.errorMessage = ""; }, 10000);
       });
 
     if (taskId)
@@ -46,6 +51,10 @@ export class BeerinosComponent implements OnInit {
         .subscribe((res) => {
           if (res.valid)
             this.currentTask = res.data as Task;
+        },
+        errorMessage => {
+          this.errorMessage = errorMessage;
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
         });
   }
 
@@ -57,22 +66,49 @@ export class BeerinosComponent implements OnInit {
         if (res.valid) {
           this.beerinos = [].concat(res.data) as Beerino[];
         } else {
-          this.errorMessage = res.message;
+
+          if (typeof res.message == "string")
+            this.errorMessage = res.message;
+          else
+            res.message.map((message) => {
+              this.errorMessage += message + "<br />";
+            });
+
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
         }
       },
-      errorMessage => this.errorMessage = errorMessage);
+      errorMessage => {
+        this.errorMessage = errorMessage;
+        setTimeout(() => { this.errorMessage = ""; }, 10000);
+      });
   }
 
   deleteBeerino(beerinoId: string) {
     this.beerinoService
       .deleteBeerino(beerinoId)
-      .subscribe(() => {
-        for (let i = 0; i < this.beerinos.length; i++) {
-          if (this.beerinos[i].beerinoId == beerinoId) {
-            this.beerinos.splice(i, 1);
-            break;
+      .subscribe((res) => {
+        if (res.valid && res.data.affectedRows == 1) {
+          for (let i = 0; i < this.beerinos.length; i++) {
+            if (this.beerinos[i].beerinoId == beerinoId) {
+              this.beerinos.splice(i, 1);
+              this.infoMessage = "Beerino deleted.";
+              setTimeout(() => { this.infoMessage = ""; }, 10000);
+              break;
+            }
           }
+        } else if (res.valid && res.data.affectedRows == 0) {
+          this.errorMessage = "No Beerino deleted. Verify and try again.";
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
+        } else {
+          res.message.map((message) => {
+            this.errorMessage += message + "<br />";
+          });
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
         }
+      },
+      errorMessage => {
+        this.errorMessage = errorMessage;
+        setTimeout(() => { this.errorMessage = ""; }, 10000);
       });
   }
 

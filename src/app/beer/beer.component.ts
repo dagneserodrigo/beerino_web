@@ -14,6 +14,8 @@ import { Beer } from '../entities/beer';
 })
 export class BeerComponent implements OnInit {
 
+  infoMessage = "";
+  errorMessage = "";
   model = new Beer(null, "", "", "<b>Type the beer recipe here.</b>", true, +localStorage.getItem('sys_userId'));
   isNew = true;
 
@@ -39,6 +41,15 @@ export class BeerComponent implements OnInit {
                 this.model = res.data as Beer;
                 this.model.visible = res.data.visible.data[0] == 1;
                 this.isNew = this.model.beerId == 0;
+              } else {
+                if (typeof res.message == "string")
+                  this.errorMessage = res.message;
+                else
+                  res.message.map((message) => {
+                    this.errorMessage += message + "<br />";
+                  });
+
+                setTimeout(() => { this.errorMessage = ""; }, 10000);
               }
             });
         }
@@ -50,8 +61,22 @@ export class BeerComponent implements OnInit {
       .saveBeer(this.model)
       .subscribe((res) => {
         if (this.isNew && res.valid) {
-          this.model.beerId = +res.data.insertId;
+          this.model.beerId = +res.data.beerId;
           this.isNew = false;
+          this.infoMessage = "New beer added!";
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
+        } else if (!this.isNew && res.valid) {
+          this.infoMessage = "Beer updated!";
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
+        } else {
+            if (typeof res.message == "string")
+              this.errorMessage = res.message;
+            else
+              res.message.map((message) => {
+                this.errorMessage += message + "<br />";
+              });
+
+            setTimeout(() => { this.errorMessage = ""; }, 10000);
         }
       });
   }

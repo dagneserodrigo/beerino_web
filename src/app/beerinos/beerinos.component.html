@@ -1,4 +1,6 @@
 <h1>Beerinos</h1>
+<alert type="danger" *ngIf="errorMessage">{{ errorMessage }}</alert>
+<alert type="info" *ngIf="infoMessage">{{ infoMessage }}</alert>
 <div class="pull-right">
   <a [routerLink]="['/beerino']" class="btn btn-success">Add new Beerino</a>
 </div>

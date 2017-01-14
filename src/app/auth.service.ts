@@ -15,7 +15,7 @@ export class AuthService {
     domain: 'beerino.auth0.com',
     clientID: 'Pb5WTTaeFxc9m01VgRrfUeq8aOVSP8dY',
     responseType: 'token',
-    callbackURL: 'http://localhost:4200/signin-auth0',
+    callbackURL: 'http://138.197.86.122/signin-auth0',
   });
 
   constructor(private router: Router, private beerinoService: BeerinoService) {

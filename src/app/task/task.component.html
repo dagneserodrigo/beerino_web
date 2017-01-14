@@ -1,5 +1,7 @@
 <h1 *ngIf="isNew">Add new Task to Beer</h1>
 <h1 *ngIf="!isNew">Editing Task {{ model.taskId }}</h1>
+<alert type="danger" *ngIf="errorMessage">{{ errorMessage }}</alert>
+<alert type="info" *ngIf="infoMessage">{{ infoMessage }}</alert>
 <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
   <div class="form-group">
     <label id="time">Duration (in ms)</label>
@@ -12,7 +14,7 @@
            [(ngModel)]="model.time"/>
   </div>
   <div class="form-group">
-    <label id="temperature">Temperature</label>
+    <label id="temperature">Temperature (Celsius degrees)</label>
     <input type="number"
            name="temperature"
            class="form-control"

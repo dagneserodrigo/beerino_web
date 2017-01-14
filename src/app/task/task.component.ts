@@ -14,6 +14,8 @@ import { BaseApiResponse } from "../entities/baseApiResponse";
 })
 export class TaskComponent implements OnInit {
 
+  infoMessage = "";
+  errorMessage = "";
   isNew = true;
   model = new Task(null, 0, 0, 0, 0);
 
@@ -38,13 +40,30 @@ export class TaskComponent implements OnInit {
               if (res.valid) {
                 this.model = res.data as Task;
                 this.isNew = false;
+              } else {
+                if (typeof res.message == "string")
+                  this.errorMessage = res.message;
+                else
+                  res.message.map((message) => {
+                    this.errorMessage += message + "<br />";
+                  });
+
+                setTimeout(() => { this.errorMessage = ""; }, 10000);
               }
+            },
+            errorMessage => {
+              this.errorMessage = errorMessage;
+              setTimeout(() => { this.errorMessage = ""; }, 10000);
             });
         } else if (params["beerId"]) {
           this.model = new Task(null, 0, this.model.temperature, 0, +params["beerId"]);
         } else {
-          //@TODO error!
+          this.router.navigate(['/beers'])
         }
+      },
+      errorMessage => {
+        this.errorMessage = errorMessage;
+        setTimeout(() => { this.errorMessage = ""; }, 10000);
       });
   }
 
@@ -55,8 +74,25 @@ export class TaskComponent implements OnInit {
         if (this.isNew && res.valid) {
           this.model.taskId = +res.data.insertId;
           this.isNew = false;
+          this.infoMessage = "New task added!";
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
+        } else if (!this.isNew && res.valid) {
+          this.infoMessage = "Task updated!";
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
+        } else {
+          if (typeof res.message == "string")
+            this.errorMessage = res.message;
+          else
+            res.message.map((message) => {
+              this.errorMessage += message + "<br />";
+            });
+
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
         }
-        //@TODO update beer.beerId
+      },
+      errorMessage => {
+        this.errorMessage = errorMessage;
+        setTimeout(() => { this.errorMessage = ""; }, 10000);
       });
   }
 }

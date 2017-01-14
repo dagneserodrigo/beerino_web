@@ -1,4 +1,6 @@
 <h1>Beer Tasks</h1>
+<alert type="danger" *ngIf="errorMessage">{{ errorMessage }}</alert>
+<alert type="info" *ngIf="infoMessage">{{ infoMessage }}</alert>
 <div class="pull-right">
   <a [routerLink]="['/beers']" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back</a>
   <a [routerLink]="['/task', beerId]" class="btn btn-success">Add new Beer Task</a>
@@ -9,6 +11,7 @@
         <th># <span class="sr-only">ID</span></th>
         <th>Task Duration</th>
         <th>Temperature</th>
+        <th>Order</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -16,7 +19,8 @@
     <tr *ngFor="let task of tasks">
         <th>{{ task.taskId }}</th>
         <th>{{ task.time }}</th>
-        <th>{{ task.temperature }}</th>
+        <th>{{ task.temperature }} &#8451;</th>
+        <th>{{ task.order }}</th>
         <th>
           <a [routerLink]="['/task', task.beerId, task.taskId]" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i><span class="sr-only">Edit Task</span></a>
           <button (click)="deleteTask(task.taskId)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i> <span class="sr-only">Delete</span></button>

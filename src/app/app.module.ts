@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 
+import { AlertModule } from 'ng2-bootstrap/alert';
 import { ModalModule } from 'ng2-bootstrap/modal';
 import { CKEditorModule } from 'ng2-ckeditor';
 
@@ -37,6 +38,7 @@ import { TaskComponent } from './task/task.component';
     HttpModule,
     JsonpModule,
     AppRoutingModule,
+    AlertModule.forRoot(),
     ModalModule.forRoot(),
     CKEditorModule
   ],

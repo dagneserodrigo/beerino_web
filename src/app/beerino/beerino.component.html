@@ -1,5 +1,7 @@
 <h1 *ngIf="!beerinoIsValid || isNew">Add new Beerino</h1>
 <h1 *ngIf="beerinoIsValid && !isNew">Editing Beerino {{ model.beerinoId }}</h1>
+<alert type="danger" *ngIf="errorMessage">{{ errorMessage }}</alert>
+<alert type="info" *ngIf="infoMessage">{{ infoMessage }}</alert>
 <form (ngSubmit)="onSubmit()" #beerinoForm="ngForm">
   <div class="form-group">
     <label for="beerinoId">Beerino Identifier</label>

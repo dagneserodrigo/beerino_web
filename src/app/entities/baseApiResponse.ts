@@ -2,7 +2,7 @@
   constructor(
     public valid: boolean,
     public data?: any,
-    public message?: string
+    public message?: any
   ) { }
 
 }

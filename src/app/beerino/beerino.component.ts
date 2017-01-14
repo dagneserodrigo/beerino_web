@@ -15,6 +15,8 @@ import { Beerino } from '../entities/beerino';
 })
 export class BeerinoComponent implements OnInit {
 
+  infoMessage = "";
+  errorMessage = "";
   beerinoIsValid = false;
   isNew = true;
   beers: Beer[];
@@ -49,18 +51,51 @@ export class BeerinoComponent implements OnInit {
                 this.model = res.data as Beerino;
                 this.beerinoIsValid = res.data.beerinoId != "";
                 this.isNew = res.data.beerinoId == "";
+              } else {
+                if (typeof res.message == "string")
+                  this.errorMessage = res.message;
+                else
+                  res.message.map((message) => {
+                    this.errorMessage += message + "<br />";
+                  });
+
+                setTimeout(() => { this.errorMessage = ""; }, 10000);
               }
             });
         }
+      },
+      errorMessage => {
+        this.errorMessage = errorMessage;
+        setTimeout(() => { this.errorMessage = ""; }, 10000);
       });
   }
 
   onSubmit() {
+    this.model.currentBeerId = this.model.currentBeerId.toString() == "null" ? null : this.model.currentBeerId;
     this.beerinoService
       .saveBeerino(this.model)
       .subscribe((res) => {
-        if(this.isNew && res.valid)
+        if (this.isNew && res.valid) {
           this.isNew = false;
+          this.infoMessage = "New beerino added!";
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
+        } else if (!this.isNew && res.valid) {
+          this.infoMessage = "Beerino updated!";
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
+        } else {
+          if (typeof res.message == "string")
+            this.errorMessage = res.message;
+          else
+            res.message.map((message) => {
+              this.errorMessage += message + "<br />";
+            });
+
+          setTimeout(() => { this.errorMessage = ""; }, 10000);
+        }
+      },
+      errorMessage => {
+        this.errorMessage = errorMessage;
+        setTimeout(() => { this.errorMessage = ""; }, 10000);
       });
   }
 
