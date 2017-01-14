@@ -40,7 +40,7 @@
                   <span *ngIf="beerino.currentTaskId != null"><br/>
                     - <strong>Task ID:</strong> {{ currentTask.taskId }}<br />
                     - <strong>Task Order:</strong> {{ currentTask.order }}<br />
-                    - <strong>Task Duration:</strong> {{ currentTask.time }}ms (~{{ (currentTask.time/60)/60 }}min)<br />
+                    - <strong>Task Duration:</strong> {{ currentTask.time/60000 }}min<br />
                     - <strong>Task Medium Temperature:</strong> {{ currentTask.temperature }}	&#8451;
                   </span>
                 </p>

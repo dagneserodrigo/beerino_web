@@ -4,12 +4,12 @@
 <alert type="info" *ngIf="infoMessage">{{ infoMessage }}</alert>
 <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
   <div class="form-group">
-    <label id="time">Duration (in ms)</label>
+    <label id="time">Duration (in min)</label>
     <input type="number"
            name="time"
            class="form-control"
            id="time"
-           placeholder="Type the duration of the task in ms"
+           placeholder="Type the duration of the task in minutes"
            required
            [(ngModel)]="model.time"/>
   </div>
@@ -31,6 +31,7 @@
            class="form-control"
            id="order"
            placeholder="The task order in the tasks list."
+           min="1"
            required
            [(ngModel)]="model.order"/>
   </div>

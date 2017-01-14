@@ -39,6 +39,7 @@ export class TaskComponent implements OnInit {
             .subscribe((res) => {
               if (res.valid) {
                 this.model = res.data as Task;
+                this.model.time = res.data.time / 60000;
                 this.isNew = false;
               } else {
                 if (typeof res.message == "string")
@@ -68,8 +69,10 @@ export class TaskComponent implements OnInit {
   }
 
   onSubmit() {
+    let tmp = this.model;
+    tmp.time = this.model.time * 60000;
     this.beerinoService
-      .saveTask(this.model)
+      .saveTask(tmp)
       .subscribe((res) => {
         if (this.isNew && res.valid) {
           this.model.taskId = +res.data.insertId;
