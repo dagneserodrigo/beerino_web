@@ -69,8 +69,7 @@ export class TaskComponent implements OnInit {
   }
 
   onSubmit() {
-    let tmp = this.model;
-    tmp.time = this.model.time * 60000;
+    let tmp = new Task(this.model.taskId, this.model.time * 60000, this.model.temperature, this.model.order, this.model.beerId);
     this.beerinoService
       .saveTask(tmp)
       .subscribe((res) => {
