@@ -70,6 +70,11 @@ export class BeerinoComponent implements OnInit {
       });
   }
 
+  onChange() {
+    this.model.currentTaskId = null;
+    this.model.currentTemperature = null;
+  }
+
   onSubmit() {
     this.model.currentBeerId = this.model.currentBeerId.toString() == "null" ? null : this.model.currentBeerId;
     this.beerinoService

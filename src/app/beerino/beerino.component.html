@@ -45,6 +45,7 @@
       <select name="currentBeerId"
               class="form-control"
               id="currentBeerId"
+              (change)="onChange()"
               [(ngModel)]="model.currentBeerId">
         <option [value]="null">None</option>
         <option [value]="beer.beerId" *ngFor="let beer of beers">{{ beer.name }}</option>
