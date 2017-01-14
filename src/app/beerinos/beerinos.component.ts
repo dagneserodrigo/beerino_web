@@ -32,7 +32,18 @@ export class BeerinosComponent implements OnInit {
     this.getBeerinos();
   }
 
-  onModalShow(beerId: number, taskId?: number) {
+  onModalShow(beerinoId: string, beerId: number, taskId?: number) {
+    this.beerinoService
+      .getBeerino(beerinoId)
+      .subscribe((res) => {
+        if (res.valid) {
+          this.beerinos.map((beerino, index) => {
+            if (beerino.beerinoId == res.data.beerinoId)
+              this.beerinos[index] = res.data;
+          });
+        }
+      });
+
     this.beerinoService
       .getBeer(beerId)
       .subscribe((res) => {
