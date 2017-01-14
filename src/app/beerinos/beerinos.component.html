@@ -21,7 +21,7 @@
         <button (click)="lgModal.show()" *ngIf="beerino.currentBeerId != null" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-list-alt"></i> <span class="sr-only">List Tasks</span></button>
         <button (click)="deleteBeerino(beerino.beerinoId)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i> <span class="sr-only">Delete</span></button>
 
-        <div bsModal #lgModal="bs-modal" (onShow)="onModalShow(beerino.currentBeerId, beerino.currentTaskId)" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div bsModal #lgModal="bs-modal" (onShow)="onModalShow(beerino.beerinoId, beerino.currentBeerId, beerino.currentTaskId)" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
